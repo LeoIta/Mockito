@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class Test03MockitoSingleWhenThenReturn {
+class Test04MockitoMultipleWhenThenReturn {
 
     private BookingService bookingService;
     private PaymentService paymentServiceMock;
@@ -33,32 +33,20 @@ class Test03MockitoSingleWhenThenReturn {
     }
 
     @Test
-    void shouldCountAvailablePlacesWhenOneRoomAvailable() {
+    void shouldCountAvailablePlacesWhenCalledMultipleTimes() {
         when(roomServiceMock.getAvailableRooms())
-                .thenReturn(Collections.singletonList(new Room("Room1", 2)));
+                .thenReturn(Collections.singletonList(new Room("Room1", 2)))
+                .thenReturn(Collections.emptyList());
         //given
-        int expected = 2;
+        int expectedFirstCall = 2;
+        int expectedSecondCall = 0;
         //when
-        int actual = bookingService.getAvailablePlaceCount();
+        int actualFirstCall = bookingService.getAvailablePlaceCount();
+        int actualSecondCall = bookingService.getAvailablePlaceCount();
         // then
-        assertEquals(expected, actual);
+        assertAll(
+                () -> assertEquals(expectedFirstCall,actualFirstCall),
+                () -> assertEquals(expectedSecondCall,actualSecondCall));
+
     }
-
-    @Test
-    void shouldGetAvailablePlacesWhenMultipleRoomsAvailable() {
-        when(roomServiceMock.getAvailableRooms())
-                .thenReturn(Arrays.asList(
-                        new Room("Room1", 2),
-                        new Room("Room2", 5),
-                        new Room("Room3", 3))
-                );
-        //given
-        int expected = 10;
-        //when
-        int actual = bookingService.getAvailablePlaceCount();
-        // then
-        assertEquals(expected, actual);
-    }
-
-
 }

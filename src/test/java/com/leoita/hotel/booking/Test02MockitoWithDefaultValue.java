@@ -30,7 +30,7 @@ class Test02MockitoWithDefaultValue {
     }
 
     @Test
-    void shouldGetAvailableRoomCount() {
+    void shouldGetAvailablePlacesCount() {
 
         //given
         int expected = 0 ;
