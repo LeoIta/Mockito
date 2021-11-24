@@ -42,7 +42,7 @@ public class BookingService {
         }
 
         bookingRequest.setRoomId(roomId);
-        String bookingId = Booking.save(bookingRequest);
+        String bookingId = booking.save(bookingRequest);
         roomService.bookRoom(roomId);
         mailSender.sendBookingConfirmation(bookingId);
         return bookingId;
@@ -50,8 +50,8 @@ public class BookingService {
 
     //needs RoomService and Booking
     public void cancelBooking(String id) {
-        BookingRequest request = Booking.get(id);
+        BookingRequest request = booking.get(id);
         roomService.unbookRoom(request.getRoomId());
-        Booking.delete(id);
+        booking.delete(id);
     }
 }

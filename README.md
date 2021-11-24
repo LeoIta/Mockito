@@ -13,3 +13,12 @@ Use eq() to mix matchers and concrete values:
 For nullable Strings, use any() instead of anyString() as the second one doesn't cover the null case.
 </li>
 </ul>
+<h2>Spy vs Mock</h2>
+<hr>
+<h4>MOCK:</h4> 
+dummy object with no real logic and always returns the default value
+<br><i>when(mock.method()).thenReturn()</i>
+
+<h4>SPY:</h4>
+partial mock, a real object with real logic that we can modify
+<br><i>doReturn().when(spy.method())</i>
