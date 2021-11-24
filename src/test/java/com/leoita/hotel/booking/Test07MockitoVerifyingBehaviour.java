@@ -2,16 +2,13 @@ package com.leoita.hotel.booking;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
-
-class Test05MockitoThrowException {
+class Test07MockitoVerifyingBehaviour {
 
     private BookingService bookingService;
     private PaymentService paymentServiceMock;
@@ -31,21 +28,37 @@ class Test05MockitoThrowException {
     }
 
     @Test
-    void shouldThrowExceptionWhenNoRoomAvailable() {
+    void shouldInvokePaymentWhenPrepaid() {
+
+        //given
+        BookingRequest bookingRequest = new BookingRequest("1",
+                LocalDate.of(2021, 12, 12),
+                LocalDate.of(2021, 12, 16),
+                2, true);
+
+        //when
+        bookingService.makeBooking(bookingRequest);
+
+        // then
+        verify(paymentServiceMock, times(1)).pay(bookingRequest, 400.0);
+        verifyNoMoreInteractions(paymentServiceMock);
+    }
+
+    @Test
+    void shouldNotInvokePaymentWhenNotPrepaid() {
 
         //given
         BookingRequest bookingRequest = new BookingRequest("1",
                 LocalDate.of(2021, 12, 12),
                 LocalDate.of(2021, 12, 16),
                 2, false);
-        when(this.roomServiceMock.findAvailableRoomId(bookingRequest))
-                .thenThrow(AvailabilityException.class);
 
         //when
-        Executable executable = () -> bookingService.makeBooking(bookingRequest);
+        bookingService.makeBooking(bookingRequest);
 
         // then
-        assertThrows(AvailabilityException.class, executable);
+        verifyNoInteractions(paymentServiceMock);
+        verify(paymentServiceMock, never()).pay(any(), anyDouble());
+        /*lines 62 and 63 are two ways of doing the same thing*/
     }
-
 }
