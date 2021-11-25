@@ -40,7 +40,9 @@ In order to use Mockito annotations, we need annotate the class with:
 <h2>From Mockito to Mockito BDD</h2>
 when...thenReturn => given...willReturn<br>
 verify(mockObject,times(int)).method() => then(mockObject).should(times(int)).method()
-<h2>Mock static method</h2>
-In order to be able to mock static method (possible since Mockito 3.4.0), we should change the dependency in the pom.xml file<br>
+<h2>Mock static/final methods</h2>
+In order to be able to mock static or final methods (possible since Mockito 3.4.0), we should change the dependency in the pom.xml file<br>
 from: mockito-core<br>
 to: mockito-inline
+<h2>Mock private methods</h2>
+You cannot test private methods directly, but you should test the public one that is using it.

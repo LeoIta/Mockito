@@ -25,7 +25,7 @@ public class RoomService {
                 .orElseThrow(AvailabilityException::new);
     }
 
-    public List<Room> getAvailableRooms() {
+    public final List<Room> getAvailableRooms() {
         return roomAvailability.entrySet().stream()
                 .filter(Map.Entry::getValue)  //filter only the available rooms
                 .map(Map.Entry::getKey)       //provide the available rooms
