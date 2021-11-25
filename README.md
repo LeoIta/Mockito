@@ -37,3 +37,6 @@ In order to use Mockito annotations, we need annotate the class with:
 @Spy instead of spy(object.class)<br>
 @InjectMocks instead of initialize the object that has mock/spy dependencies<br>
 @Captor instead of ArgumentCaptor.forClass(object.class)
+<h2>From Mockito to Mockito BDD</h2>
+when...thenReturn => given...willReturn<br>
+verify(mockObject,times(int)).method() => then(mockObject).should(times(int)).method()
