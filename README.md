@@ -23,3 +23,8 @@ partial mock, a real object with real logic that we can modify
 <i>doThrow(Exception.class).when(MockObject).mockMethod();</i>
 <h4>Other methods:</h4>
 <i>when(MockObject.MockMethod()).thenThrow(Exception.class);</i>
+<h2>Mock Argument Captors</h2><hr>
+ArgumentCaptor&#10092;T&#10093; object can be used when we want to capture and use an argument later in the test. Used methods are:
+<li><i>argumentCaptor.capture()</i> to capture the value(s) and then we use</li>
+<li><i>argumentCaptor.getValue()</i> to get the last captured value</li>
+<li><i>argumentCaptor.getAllValues()</i> to get all the captured values in a list</li>
