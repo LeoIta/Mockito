@@ -1,8 +1,9 @@
 package com.leoita.hotel.booking;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -12,25 +13,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class Test10MockitoArgumentCaptors {
+@ExtendWith(MockitoExtension.class)
+class Test11MockitoAnnotations {
 
+    @InjectMocks
     private BookingService bookingService;
-    private PaymentService paymentServiceMock;
-    private RoomService roomServiceMock;
-    private Booking bookingMock;
-    private MailSender mailSenderMock;
-    private ArgumentCaptor<Double> doubleArgumentCaptor;
 
-    @BeforeEach
-    void setup() {
-        this.paymentServiceMock = mock(PaymentService.class);
-        this.roomServiceMock = mock(RoomService.class);
-        this.mailSenderMock = mock(MailSender.class);
-        this.bookingMock = mock(Booking.class);
-        this.bookingService = new BookingService(paymentServiceMock, roomServiceMock,
-                bookingMock, mailSenderMock);
-        this.doubleArgumentCaptor = ArgumentCaptor.forClass(Double.class);
-    }
+    @Mock
+    private PaymentService paymentServiceMock;
+
+    @Mock
+    private RoomService roomServiceMock;
+
+    @Spy
+    private Booking bookingMock;
+
+    @Mock
+    private MailSender mailSenderMock;
+
+    @Captor
+    private ArgumentCaptor<Double> doubleArgumentCaptor;
 
     @Test
     void shouldPayCorrectPriceWhenInputOk() {
