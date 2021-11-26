@@ -9,12 +9,11 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class BookingService {
 
+    private static final double BASE_PRICE_USD = 50.0;
     private final PaymentService paymentService;
     private final RoomService roomService;
     private final Booking booking;
     private final MailSender mailSender;
-
-    private static final double BASE_PRICE_USD = 50.0;
 
     public int getAvailablePlaceCount() {
         return roomService.getAvailableRooms()

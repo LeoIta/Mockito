@@ -41,9 +41,9 @@ class Test15MockitoAnswers {
                     LocalDate.of(2021, 12, 12),
                     LocalDate.of(2021, 12, 16),
                     2, false);
-            double expected = 400.0*0.8;
+            double expected = 400.0 * 0.8;
             mockedConverter.when(() -> CurrencyConverter.toEuro(anyDouble()))
-                    .thenAnswer(inv -> (double) inv.getArgument(0)*0.8);
+                    .thenAnswer(inv -> (double) inv.getArgument(0) * 0.8);
             //when
             double actual = bookingService.calculatePriceEuro(bookingRequest);
 

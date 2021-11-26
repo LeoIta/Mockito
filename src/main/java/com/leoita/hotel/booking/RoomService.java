@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 public class RoomService {
 
     private static final Map<Room, Boolean> roomAvailability;
+
     static {
         roomAvailability = new HashMap<>();
         roomAvailability.put(new Room("1.1", 2), true);

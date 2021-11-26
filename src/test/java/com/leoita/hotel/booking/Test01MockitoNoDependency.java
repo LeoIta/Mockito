@@ -40,7 +40,7 @@ class Test01MockitoNoDependency {
         //when
         double actual = bookingService.calculatePrice(bookingRequest);
         // then
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -51,11 +51,11 @@ class Test01MockitoNoDependency {
                 LocalDate.of(2021, 12, 12),
                 LocalDate.of(2021, 12, 16),
                 2, false);
-        double expected = 4 * 2 * 50.0*0.85;
+        double expected = 4 * 2 * 50.0 * 0.85;
         //when
         double actual = bookingService.calculatePriceEuro(bookingRequest);
         // then
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
 }

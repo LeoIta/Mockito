@@ -66,7 +66,7 @@ class Test11MockitoAnnotations {
                 LocalDate.of(2021, 12, 12),
                 LocalDate.of(2021, 12, 13),
                 2, true);
-        List<Double> expected = Arrays.asList(400.00,100.00);
+        List<Double> expected = Arrays.asList(400.00, 100.00);
         //when
         bookingService.makeBooking(bookingRequest1);
         bookingService.makeBooking(bookingRequest2);

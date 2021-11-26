@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.mockito.Mockito.lenient;
+
 import java.time.LocalDate;
 
 import static org.mockito.ArgumentMatchers.anyDouble;
@@ -41,12 +41,12 @@ class Test13StrictStubbing {
                 LocalDate.of(2021, 12, 16),
                 2, false);
         lenient().when(paymentServiceMock.pay(any(), anyDouble())).thenReturn("1");
-/*without Lenient() the line 46 will produce an UnnecessaryStubbingException because we mock an object that will never be used*/
+        /*without Lenient() the line 46 will produce an UnnecessaryStubbingException because we mock an object that will never be used*/
         //when
         bookingService.makeBooking(bookingRequest);
 
         // then
-        then(paymentServiceMock).should(never()).pay(any(),anyDouble());
+        then(paymentServiceMock).should(never()).pay(any(), anyDouble());
     }
 
 }

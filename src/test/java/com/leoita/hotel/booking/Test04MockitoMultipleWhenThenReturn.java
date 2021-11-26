@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -44,8 +45,8 @@ class Test04MockitoMultipleWhenThenReturn {
         int actualSecondCall = bookingService.getAvailablePlaceCount();
         // then
         assertAll(
-                () -> assertEquals(expectedFirstCall,actualFirstCall),
-                () -> assertEquals(expectedSecondCall,actualSecondCall));
+                () -> assertEquals(expectedFirstCall, actualFirstCall),
+                () -> assertEquals(expectedSecondCall, actualSecondCall));
 
     }
 }
