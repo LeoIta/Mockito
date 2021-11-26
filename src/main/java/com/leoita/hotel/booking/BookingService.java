@@ -1,19 +1,21 @@
 package com.leoita.hotel.booking;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.temporal.ChronoUnit;
 
 @AllArgsConstructor
+@Service
 public class BookingService {
 
-    private static final double BASE_PRICE_USD = 50.0;
-    private final PaymentService paymentService;    //take care of the money
-    private final RoomService roomService;          //manage the rooms availability
-    private final Booking booking;                  //take keeps list of all booking
-    private final MailSender mailSender;            //take care of mail system
+    private final PaymentService paymentService;
+    private final RoomService roomService;
+    private final Booking booking;
+    private final MailSender mailSender;
 
-    //needs RoomService
+    private static final double BASE_PRICE_USD = 50.0;
+
     public int getAvailablePlaceCount() {
         return roomService.getAvailableRooms()
                 .stream()
@@ -21,18 +23,15 @@ public class BookingService {
                 .reduce(0, Integer::sum);
     }
 
-    //no dependency
     public double calculatePrice(BookingRequest bookingRequest) {
         long nights = ChronoUnit.DAYS.between(bookingRequest.getDateFrom(), bookingRequest.getDateTo());
         return BASE_PRICE_USD * bookingRequest.getGuestCount() * nights;
     }
 
-    //no dependency
     public double calculatePriceEuro(BookingRequest bookingRequest) {
         return CurrencyConverter.toEuro(calculatePrice(bookingRequest));
     }
 
-    //needs RoomService, PaymentService, MailSender and Booking
     public String makeBooking(BookingRequest bookingRequest) {
         String roomId = roomService.findAvailableRoomId(bookingRequest);
         double price = calculatePrice(bookingRequest);
@@ -48,7 +47,6 @@ public class BookingService {
         return bookingId;
     }
 
-    //needs RoomService and Booking
     public void cancelBooking(String id) {
         BookingRequest request = booking.get(id);
         roomService.unbookRoom(request.getRoomId());

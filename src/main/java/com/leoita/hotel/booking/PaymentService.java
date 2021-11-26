@@ -1,9 +1,12 @@
 package com.leoita.hotel.booking;
 
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@Service
 public class PaymentService {
     private final Map<String, Double> payments = new HashMap<>();
 

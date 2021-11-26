@@ -1,10 +1,13 @@
 package com.leoita.hotel.booking;
 
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Service
 public class RoomService {
 
     private static final Map<Room, Boolean> roomAvailability;
@@ -20,16 +23,16 @@ public class RoomService {
     public String findAvailableRoomId(BookingRequest bookingRequest) {
         return getAvailableRooms().stream()
                 .filter(room -> room.getCapacity() == bookingRequest.getGuestCount())
-                .findFirst() //if there is any available, then return the room number
+                .findFirst()
                 .map(Room::getId)
                 .orElseThrow(AvailabilityException::new);
     }
 
     public final List<Room> getAvailableRooms() {
         return roomAvailability.entrySet().stream()
-                .filter(Map.Entry::getValue)  //filter only the available rooms
-                .map(Map.Entry::getKey)       //provide the available rooms
-                .collect(Collectors.toList());      //put in a list
+                .filter(Map.Entry::getValue)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     public int getRoomCount() {
